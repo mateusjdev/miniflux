@@ -36,7 +36,7 @@ func (c *Client) CreateBookmark(entryURL, entryTitle string) error {
 		return fmt.Errorf("shiori: unable to authenticate: %v", err)
 	}
 
-	apiEndpoint, err := urllib.JoinBaseURLAndPath(c.baseURL, "/api/bookmarks")
+	apiEndpoint, err := urllib.JoinBaseURLAndPath(c.baseURL, "/api/v1/bookmarks")
 	if err != nil {
 		return fmt.Errorf("shiori: invalid API endpoint: %v", err)
 	}
@@ -76,7 +76,7 @@ func (c *Client) CreateBookmark(entryURL, entryTitle string) error {
 }
 
 func (c *Client) authenticate() (sessionID string, err error) {
-	apiEndpoint, err := urllib.JoinBaseURLAndPath(c.baseURL, "/api/login")
+	apiEndpoint, err := urllib.JoinBaseURLAndPath(c.baseURL, "/api/v1/auth/login")
 	if err != nil {
 		return "", fmt.Errorf("shiori: invalid API endpoint: %v", err)
 	}
