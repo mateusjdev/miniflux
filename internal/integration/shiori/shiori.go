@@ -36,7 +36,7 @@ func (c *Client) CreateBookmark(entryURL, entryTitle string) error {
 		return fmt.Errorf("shiori: unable to authenticate: %v", err)
 	}
 
-	apiEndpoint, err := urllib.JoinBaseURLAndPath(c.baseURL, "/api/v1/bookmarks")
+	apiEndpoint, err := urllib.JoinBaseURLAndPath(c.baseURL, "/api/bookmarks")
 	if err != nil {
 		return fmt.Errorf("shiori: invalid API endpoint: %v", err)
 	}
@@ -112,7 +112,7 @@ func (c *Client) authenticate() (sessionID string, err error) {
 		return "", fmt.Errorf("shiori: unable to decode response: %v", err)
 	}
 
-	return authResponse.SessionID, nil
+	return authResponse.Session.SessionID, nil
 }
 
 type authRequest struct {
@@ -121,6 +121,10 @@ type authRequest struct {
 }
 
 type authResponse struct {
+	Session authSession `json:"message"`
+}
+
+type authSession struct {
 	SessionID string `json:"session"`
 }
 
